@@ -25,6 +25,7 @@ public class Task {
     private long taskId;
     private String taskName;
     private String taskDescription;
+
     private boolean learning;
     private boolean working;
     private boolean ready;
