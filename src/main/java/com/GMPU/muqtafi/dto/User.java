@@ -4,11 +4,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Data
-public class Users {
+public class User {
 
     @Id
     @SequenceGenerator(
@@ -23,7 +25,4 @@ public class Users {
     private long userId;
 
     private String userName;
-
-    @Embedded
-    private Tasks tasks;
 }
