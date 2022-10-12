@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -16,18 +17,16 @@ function Navbar() {
 
         <nav className="dashboard-nav-list">
           <a href="/#" className="dashboard-nav-item"><i className="fas fa-home"></i>Home</a>
-          <a href="/#" className="dashboard-nav-item active"><i className="fas fa-tachometer-alt"></i>Ideas</a>
+          {/* <a href="/#" className="dashboard-nav-item active"><i className="fas fa-tachometer-alt"></i>Ideas</a> */}
+          <a href="/#" className="dashboard-nav-item"><i className="fas fa-tachometer-alt"></i>Ideas</a>
           <a href="/#" className="dashboard-nav-item"><i className="fas fa-file-upload"></i> Tasks </a>
     
           <div className="nav-item-divider"></div>
-          <a href="/#" className="dashboard-nav-item"><i className="fas fa-cogs"></i> Rules </a>
+          <Link to="/rules" className="dashboard-nav-item"><i className="fas fa-cogs"></i> Rules </Link>
         </nav>
     </div>
-    <div className='dashboard-app'>
 
-      <div>
-        <h1>Hello</h1>
-      </div>
+    {/* <div className='dashboard-app'> */}
         {/* <div className='dashboard-content'>
             <div className='container'>
                 <div className='card'>
@@ -40,7 +39,7 @@ function Navbar() {
                 </div>
             </div>
         </div> */}
-    </div>
+    {/* </div> */}
 </div>
   );
 }
