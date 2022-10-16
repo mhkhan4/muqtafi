@@ -1,17 +1,10 @@
-.dashboard {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    min-height: 100vh;
-}
-
-@media (min-width: 992px) {
-    .dashboard-app {
-        margin-left: 238px;
-    }
-
-    .dashboard-compact .dashboard-app {
-        margin-left: 0;
-    }
-}
+.rule-design {
+    margin-top: 10%;
+    padding-left: 30%;
+} 
+.plus-btn {
+    position: absolute;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 1.12%;
+  }

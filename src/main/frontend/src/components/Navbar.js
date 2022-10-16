@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className='dashboard'>
     <div className="dashboard-nav">
         <header>
           <a href="#!" className="menu-toggle">
@@ -26,8 +25,15 @@ function Navbar() {
         </nav>
     </div>
 
-    {/* <div className='dashboard-app'> */}
-        {/* <div className='dashboard-content'>
+   
+  );
+}
+
+export default Navbar;
+
+/*
+<div className='dashboard-app'>
+         <div className='dashboard-content'>
             <div className='container'>
                 <div className='card'>
                     <div className='card-header'>
@@ -38,13 +44,8 @@ function Navbar() {
                     </div>
                 </div>
             </div>
-        </div> */}
-    {/* </div> */}
-</div>
-  );
-}
-
-export default Navbar;
+        </div> 
+    </div> */
 
 /*
 <div className='dashboard-nav-dropdown'>

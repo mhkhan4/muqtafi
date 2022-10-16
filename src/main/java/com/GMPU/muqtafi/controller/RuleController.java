@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/rules")
+@CrossOrigin("*")
 public class RuleController {
 
     @Autowired

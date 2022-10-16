@@ -10,7 +10,7 @@ import Rule from "./components/Rule";
 function Routing() {
     return (
         <BrowserRouter>
-            <div>
+            <div >
                 <Routes>
                     <Route path = "/" exact element={<App />} />
                     <Route path = "/rules" element={<Rule />} />
