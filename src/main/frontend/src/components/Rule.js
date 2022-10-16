@@ -3,10 +3,12 @@ import React, {useState, useEffect}  from "react";
 import Navbar from "./Navbar";
 import "./Rule.css";
 import Popup from "./Popup";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 const GetRules = () =>{
     const [rules, setRules] = useState([]);
+    const [buttonPopup, setButtonPopup] = useState(false);
 
     const fetchRules = () =>{
         axios.get("http://localhost:8080/api/rules").then(res =>{
@@ -21,11 +23,60 @@ const GetRules = () =>{
 
       return rules.map((rule, index) =>{
         return(
-            <div key={index}>
-                <li>{rule.ruleDescription}</li>
+            <div key={index} id={rule.ruleId} value={rule.ruleDescription}>
+                <Dropdown>
+                    <Dropdown.Toggle variant="info" id="dropdown-basic">
+                        *
+                    </Dropdown.Toggle>
+                    {` ${rule.ruleDescription}`}
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1" onClick={(e) => DeleteRule(e)}>Delete</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" onClick={(e) => setButtonPopup(true)}>Update</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <form onSubmit={(e) => {
+                        UpdateRule(e);
+                        setButtonPopup(false);
+                        window.location.reload(); 
+                    }}>
+                        <label htmlFor="frule">Type the rule:</label><br/>
+                        <input type="text" id="frule" name="frule"/>
+                        <button type="submit">Submit</button>
+                    </form>
+                </Popup>
             </div>
         );
+        
       });
+}
+
+const DeleteRule = (e)=>{
+    e.preventDefault();
+    let divId = e.target.parentElement.parentElement.parentElement.id;
+    
+    axios.delete(`http://localhost:8080/api/rules/${divId}`).then(response => {
+        console.log(response);
+        window.location.reload(); 
+
+      });
+}
+
+const UpdateRule = (e)=>{
+    e.preventDefault();
+    
+    let divId = e.target.parentElement.parentElement.parentElement.id;
+    let newVal = e.target[0].value;
+
+    axios.put('http://localhost:8080/api/rules/' + divId, {
+        ruleDescription: newVal
+    });
+
+
+
+    
+
 }
 
 const AddRule = (event)=>{
@@ -58,7 +109,7 @@ function Rule() {
             <form onSubmit={(event) => {
                 AddRule(event);
                 setButtonPopup(false);
-                window.location.reload();
+                window.location.reload(); 
             }}>
                 <label htmlFor="frule">Type the rule:</label><br/>
                 <input type="text" id="frule" name="frule"/>
