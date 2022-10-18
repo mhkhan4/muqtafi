@@ -15,9 +15,9 @@ function Navbar() {
         </header>
 
         <nav className="dashboard-nav-list">
-          <a href="/#" className="dashboard-nav-item"><i className="fas fa-home"></i>Home</a>
+          <Link to="/" className="dashboard-nav-item"><i className="fas fa-home"></i>Home</Link>
           {/* <a href="/#" className="dashboard-nav-item active"><i className="fas fa-tachometer-alt"></i>Ideas</a> */}
-          <a href="/#" className="dashboard-nav-item"><i className="fas fa-tachometer-alt"></i>Ideas</a>
+          <Link to="/ideas" className="dashboard-nav-item"><i className="fas fa-tachometer-alt"></i>Ideas</Link>
           <a href="/#" className="dashboard-nav-item"><i className="fas fa-file-upload"></i> Tasks </a>
     
           <div className="nav-item-divider"></div>

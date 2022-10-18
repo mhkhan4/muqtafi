@@ -72,11 +72,6 @@ const UpdateRule = (e)=>{
     axios.put('http://localhost:8080/api/rules/' + divId, {
         ruleDescription: newVal
     });
-
-
-
-    
-
 }
 
 const AddRule = (event)=>{
