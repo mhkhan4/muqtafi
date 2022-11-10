@@ -12,7 +12,8 @@ function GetData(data) {
     setDatas(res.data);
         });
     };
-        fetchData();
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
       
     return datas;

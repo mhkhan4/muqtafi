@@ -31,7 +31,7 @@ const GetRules = () =>{
                     {` ${rule.ruleDescription}`}
                     <Dropdown.Menu>
                         <Dropdown.Item href="#/action-1" onClick={(e) => DeleteRule(e)}>Delete</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" onClick={(e) => setButtonPopup(true)}>Update</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" onClick={() => setButtonPopup(true)}>Update</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 
