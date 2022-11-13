@@ -3,7 +3,6 @@ import "./Idea.css";
 import useGetData from "../restApiMethods/GetData";
 import React, {useState} from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
-import Popup from "./Popup";
 import axios from "axios";
 
 function AssignTask(e){
@@ -39,10 +38,11 @@ function DropdownMenu(taskId,description,users){
 }
 
 function Task({ id }) {
+  
     const data = useGetData(`ideas/${id}`);
     const users = useGetData("users");
-    // let [newIdeaName, setNewIdeaName] = useState();
-    let newIdeaName = [];
+    const [newIdeaName, setNewIdeaName] = useState([]);
+    let ideaList = [];
     return (
       <div>
           <div className="row border border-secondary">
@@ -51,12 +51,16 @@ function Task({ id }) {
           return (
                 <div key={task.idea.ideaId*1.56}>
                   {
-                    !newIdeaName.includes(task.idea.ideaName) ?
+                    
+                    // !newIdeaName.includes(task.idea.ideaName) ?
+                    newIdeaName.includes(task.idea.ideaName) === false ?
                     <div key={task.idea.ideaId * 1.23}>
                       <h2>{task.idea.ideaName}</h2>
                       {DropdownMenu(task.taskId, task.taskDescription, users)}
-                      {
-                        newIdeaName.push(task.idea.ideaName)
+                      {ideaList = newIdeaName}
+                      {ideaList.push(task.idea.ideaName)}
+
+                      {setNewIdeaName(ideaList)
                         // setNewIdeaName(task.idea.ideaName)
                       }
                     </div>
