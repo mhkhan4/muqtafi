@@ -41,31 +41,23 @@ function Task({ id }) {
   
     const data = useGetData(`ideas/${id}`);
     const users = useGetData("users");
-    const [newIdeaName, setNewIdeaName] = useState([]);
-    let ideaList = [];
+    let newIdeaName = [];
     return (
       <div>
           <div className="row border border-secondary">
           <div className="col">
-          {data.map(task => {
+          {data.map((task,index) => {
           return (
-                <div key={task.idea.ideaId*1.56}>
+                <div key={index}>
                   {
-                    
-                    // !newIdeaName.includes(task.idea.ideaName) ?
                     newIdeaName.includes(task.idea.ideaName) === false ?
-                    <div key={task.idea.ideaId * 1.23}>
+                    <div key={index}>
                       <h2>{task.idea.ideaName}</h2>
                       {DropdownMenu(task.taskId, task.taskDescription, users)}
-                      {ideaList = newIdeaName}
-                      {ideaList.push(task.idea.ideaName)}
-
-                      {setNewIdeaName(ideaList)
-                        // setNewIdeaName(task.idea.ideaName)
-                      }
+                      {newIdeaName.push(task.idea.ideaName)}
                     </div>
                   :
-                    <div key={task.idea.ideaId*1.25}>
+                    <div key={index}>
                       {DropdownMenu(task.taskId, task.taskDescription,users)}
                     </div>
                   }

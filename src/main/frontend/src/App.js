@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from "./components/Navbar";
 import "./components/Idea.css"
 import GetData from "./restApiMethods/GetData";
-import DrugAndDrop from './components/DrugAndDrop';
+import DrugAndDrop from './components/DragAndDrop';
 
 
 function userTasks(e){
