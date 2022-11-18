@@ -1,6 +1,8 @@
 package com.GMPU.muqtafi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Rule {
 
     @Id

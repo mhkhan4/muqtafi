@@ -1,6 +1,8 @@
 package com.GMPU.muqtafi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Task {
 
     @Id
@@ -23,19 +27,16 @@ public class Task {
             generator = "taskId_squence"
     )
     private long taskId;
-    private String taskName;
     private String taskDescription;
 
     private boolean learning;
     private boolean working;
-    private boolean ready;
-    private boolean progress;
-    private boolean done;
+
+    @Embedded
+    private Board board;
 
     //user
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
+    @ManyToOne()
     @JoinColumn(
             name = "user_id",
             referencedColumnName = "userId"
@@ -43,14 +44,11 @@ public class Task {
     private User user;
 
     //idea
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
+    @ManyToOne()
     @JoinColumn(
             name = "idea_id",
-            referencedColumnName = "ideaId"
+            referencedColumnName = "ideaId",
+            nullable = false
     )
-    private Idea id;
-
-
+    private Idea idea;
 }
