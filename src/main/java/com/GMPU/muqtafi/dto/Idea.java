@@ -1,15 +1,20 @@
 package com.GMPU.muqtafi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Data
-@Embeddable
-public class Ideas {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Idea {
 
     @Id
     @SequenceGenerator(
@@ -21,9 +26,9 @@ public class Ideas {
             strategy = SEQUENCE,
             generator = "ideaId_squence"
     )
-    private long idea_id;
+    private long ideaId;
 
-    private String idea_name;
+    private String ideaName;
 
-    private String idea_description;
+    private String ideaDescription;
 }

@@ -1,0 +1,9 @@
+.rule-design {
+    margin-top: 10%;
+    padding-left: 30%;
+} 
+.plus-btn {
+    position: absolute;
+    cursor: pointer;
+    margin-left: 10px;
+  }

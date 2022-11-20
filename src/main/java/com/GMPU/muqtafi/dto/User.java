@@ -1,14 +1,20 @@
 package com.GMPU.muqtafi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Data
-public class Users {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
 
     @Id
     @SequenceGenerator(
@@ -23,7 +29,4 @@ public class Users {
     private long userId;
 
     private String userName;
-
-    @Embedded
-    private Tasks tasks;
 }
