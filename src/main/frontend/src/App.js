@@ -30,18 +30,7 @@ function userList(){
 function homePage(){
   return(
     <div className='task-table'>
-      <h3 id="learning">Learning</h3>
       <DrugAndDrop />
-        {/* {
-        taskList.map(task =>{
-          return(
-            task.user !== null &&
-            task.learning === true &&
-            <DrugAndDrop />
-          )
-        })
-        } */}
-      
     </div>
   );
 }

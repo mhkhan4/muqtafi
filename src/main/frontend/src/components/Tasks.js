@@ -1,7 +1,6 @@
 import Navbar from "./Navbar";
 import "./Idea.css";
 import useGetData from "../restApiMethods/GetData";
-import React, {useState} from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from "axios";
 
@@ -22,7 +21,7 @@ function DropdownMenu(taskId,description,users){
     <div value={description}>
       <Dropdown>
         <Dropdown.Toggle variant="info" id="dropdown-basic"></Dropdown.Toggle>
-        <p id={taskId}>{description}</p>
+          <p style={{display : 'inline', paddingLeft: '10px', paddingTop: '25px'}} id={taskId}>{description}</p>
         <Dropdown.Menu>
           {
             users.map(user =>{
@@ -41,26 +40,14 @@ function Task({ id }) {
   
     const data = useGetData(`ideas/${id}`);
     const users = useGetData("users");
-    let newIdeaName = [];
     return (
       <div>
           <div className="row border border-secondary">
           <div className="col">
-          {data.map((task,index) => {
+          {data.map((task, index) => {
           return (
                 <div key={index}>
-                  {
-                    newIdeaName.includes(task.idea.ideaName) === false ?
-                    <div key={index}>
-                      <h2>{task.idea.ideaName}</h2>
-                      {DropdownMenu(task.taskId, task.taskDescription, users)}
-                      {newIdeaName.push(task.idea.ideaName)}
-                    </div>
-                  :
-                    <div key={index}>
-                      {DropdownMenu(task.taskId, task.taskDescription,users)}
-                    </div>
-                  }
+                    {DropdownMenu(task.taskId, task.taskDescription, users)}
                 </div>
           );
                 
@@ -73,14 +60,17 @@ function Task({ id }) {
   
 
 function Tasks() {
-  const ids = useGetData("ideas/id");
+  const ideas = useGetData("ideas");
   return (
     <div>
       <Navbar />
       <div className="idea-design">
         <div className="container">
-          {ids.map(id => {
-            return <Task id={id} key={id} />;
+          {ideas.map(idea => {
+            return <div style={{paddingTop:'20px'}}key={idea.ideaId}>
+              <h2>{idea.ideaName}</h2>
+              <Task id={idea.ideaId} key={idea.ideaId} />
+              </div>
           })}
         </div>
       </div>

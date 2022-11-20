@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { v4 as uuid } from 'uuid';
 import useGetData from "../restApiMethods/GetData";
 import axios from "axios";
 
@@ -45,7 +44,7 @@ const onDragEnd = (result) => {
 };
 
 function DragAndDrop() {
-  const board = useGetData("tasks/board/learning");
+  const board = useGetData("tasks/board");
   return (
     <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <DragDropContext
