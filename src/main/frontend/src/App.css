@@ -139,3 +139,103 @@ body {
   width: 20%;
   max-height: 20%;
 }
+
+body{
+  background-color: #eee;
+}
+.main{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  background-color: #f6f6f6;
+}
+.one{
+  width: 270px;
+  background-color: #000;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.pic1{
+  position: relative;
+  right: 22px;
+  top: 23px;
+}
+.pic2{
+  position: relative;
+  left: 25px;
+  top: 17px;
+}
+.pic3{
+  position: relative;
+  right: 13px;
+  bottom: 18px;
+}
+.pic4{
+  position: relative;
+  left: 14px;
+  bottom: 21px;
+}
+.project{
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fd4040;
+}
+.quote{
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
+
+}
+
+
+
+
+.two{
+  width: 270px;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+}
+.star{
+  font-size: 20px !important;
+  color: #b1b4b7;
+}
+.dot{
+  font-size: 20px !important;
+  color: #b1b4b7;
+}
+.name{
+  font-size: 22px;
+  color: #0f1112;
+  font-weight: 600;
+  text-align: left;
+}
+.quote2{
+   font-size: 12px;
+   font-weight: 500;
+   color: #dae3ea;
+   text-align: left;
+}
+.task{
+   color: #727475;
+}
+.date{
+   color: #727475;
+}
+.imgfix{
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: 2px;
+}

@@ -2,7 +2,50 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import useGetData from "../restApiMethods/GetData";
 import axios from "axios";
+import '../App.css';
 
+const getInitials = (user) => {
+  let userArray = user.split(" ");
+  let initials = userArray[0][0];
+  initials+= userArray[userArray.length - 1][0]
+  return(
+    <div className="test rounded-circle">{initials}</div>
+  )
+}
+
+const learningWorking = (boolVal) => {
+  if(boolVal === "true"){
+    return "learning";
+  }
+  else{
+    return "working";
+  }
+}
+
+const card = (item) => {
+  let current = new Date();
+  return(
+			<div>
+        <div style={{float:"right"}}><span className="name badge badge-pill bg-success">{learningWorking(item.content[3])}</span></div>
+				<div className="px-3 pt-3">
+					<h5 className="name">{item.content[0]}</h5>
+					<p className="quote2">{item.content[2]}</p>
+				</div>
+				<div className="d-flex justify-content-between  px-3 align-items-center pb-3">
+					<div className="d-flex justify-content-start align-items-center">
+					<i className="mdi mdi-calendar-clock date"></i>
+					<span className="quote2 pl-2">{`Date: ${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`}</span>
+				</div>
+				<div className="d-flex justify-content-end">
+					{getInitials(item.content[1])}
+				</div>
+				</div>
+
+		</div>
+
+ 
+  );
+}
 
 const onDragEnd = (result) => {
   if (!result.destination) return;
@@ -102,8 +145,10 @@ function DragAndDrop() {
                                       ...provided.draggableProps.style
                                     }}
                                   >
-                                    <h6>{item.content[0]}</h6>
-                                    <p><small>{item.content[1]}</small></p>
+                                    {card(item)}
+                                
+                                    {/* <h6>{item.content[0]}</h6>
+                                    <p><small>{item.content[1]}</small></p> */}
                                   </div>
                                 );
                               }}
