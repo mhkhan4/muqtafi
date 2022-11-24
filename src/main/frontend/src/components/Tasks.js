@@ -65,7 +65,7 @@ function Tasks() {
     <div>
       <Navbar />
       <div className="idea-design">
-        <div className="container">
+        <div className="container bg-info card">
           {ideas.map(idea => {
             return <div style={{paddingTop:'20px'}}key={idea.ideaId}>
               <h2 style={{color:"teal"}}>{idea.ideaName}</h2>
