@@ -42,8 +42,8 @@ function Task({ id }) {
     const users = useGetData("users");
     return (
       <div>
-          <div className="row border border-secondary">
-          <div className="col">
+          <div className="row border border-secondary card">
+          <div className="col bg-info">
           {data.map((task, index) => {
           return (
                 <div key={index}>
@@ -68,7 +68,7 @@ function Tasks() {
         <div className="container">
           {ideas.map(idea => {
             return <div style={{paddingTop:'20px'}}key={idea.ideaId}>
-              <h2>{idea.ideaName}</h2>
+              <h2 style={{color:"teal"}}>{idea.ideaName}</h2>
               <Task id={idea.ideaId} key={idea.ideaId} />
               </div>
           })}

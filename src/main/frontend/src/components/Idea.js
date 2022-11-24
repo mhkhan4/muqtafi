@@ -4,6 +4,19 @@ import Navbar from './Navbar';
 import "./Idea.css"
 
 
+function ideaCard(idea) {
+  return(
+    <div className="card" style={{backgroundColor:"green"}}>
+      <div className="card-body">
+        <h4 className="card-title wrapper">{idea.ideaName}</h4>
+        <p className="card-text wrapper">{idea.ideaDescription}</p>
+      </div>
+    </div>
+        
+  );
+}
+
+
 
 function Idea() {
 
@@ -11,15 +24,17 @@ function Idea() {
     <div>
         <Navbar />
         <div className="idea-design">    
-            <div className="container">
+            <div className="container card bg-dark">
+              <br/>
+              <div className="m-4">
+              <div className="row">
             {GetData("ideas").map((idea,index) => 
-              <div key={index} className="row border border-secondary">
-                <div className="col">
-                    <h3>{idea.ideaName}</h3>
-                    <p>{idea.ideaDescription}</p>
-                </div>
+              <div className="col-6" key={idea.ideaId}>
+                {ideaCard(idea)}
               </div>
               )}
+              </div>
+              </div>
             </div>
             </div>
         </div>
