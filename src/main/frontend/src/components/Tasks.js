@@ -3,6 +3,8 @@ import "./Idea.css";
 import useGetData from "../restApiMethods/GetData";
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from "axios";
+import React, {useState}  from "react";
+import Popup from "./Popup";
 
 function AssignTask(e){
   e.preventDefault();
@@ -16,16 +18,41 @@ function AssignTask(e){
     });
 }
 
+const addTask = (e) =>{
+  e.preventDefault();
+  var taskD = e.target[0].value;
+  var l = e.target[1].checked;
+  var w = e.target[2].checked;
+  console.log(e.target.parentElement.parentElement.parentElement);
+  
+
+  // axios.post('http://localhost:8080/api/tasks', {
+  //     taskDescription: taskD,
+  //     learning: l,
+  //     working: w,
+  //     idea:{
+  //       ideaId:2
+  //     }
+  // })
+  // .then(function(response){
+  //     console.log(response);
+  // })
+  // .catch(function(error){
+  //     console.log(error);
+  // });
+
+}
+
 function DropdownMenu(taskId,description,users){
   return(
     <div value={description}>
       <Dropdown>
-        <Dropdown.Toggle variant="info" id="dropdown-basic"></Dropdown.Toggle>
-          <p style={{display : 'inline', paddingLeft: '10px', paddingTop: '25px'}} id={taskId}>{description}</p>
+        <Dropdown.Toggle style={{color:"#ECF0F1"}} variant="white" id="dropdown-basic"></Dropdown.Toggle>
+          <p style={{display : 'inline', paddingLeft: '10px', paddingTop: '25px', color:"#ECF0F1"}} id={taskId}>{description}</p>
         <Dropdown.Menu>
           {
             users.map(user =>{
-              return <Dropdown.Item id={user.userId} onClick={(e) => AssignTask(e)}>{user.userName}</Dropdown.Item>
+              return <Dropdown.Item key={user.userId} id={user.userId} onClick={(e) => AssignTask(e)}>{user.userName}</Dropdown.Item>
             })
           }
         </Dropdown.Menu>
@@ -42,35 +69,72 @@ function Task({ id }) {
     const users = useGetData("users");
     return (
       <div>
-          <div className="row border border-secondary card">
-          <div className="col bg-info">
-          {data.map((task, index) => {
+          <div className="row">
+          <div className="col">
+          {data.map((task) => {
           return (
-                <div key={index}>
-                    {DropdownMenu(task.taskId, task.taskDescription, users)}
-                </div>
-          );
-                
+            <div key={task.taskId}>
+                {DropdownMenu(task.taskId, task.taskDescription, users)}
+            </div>
+          );     
         })}
         </div>
             </div>
       </div>
     );
   }
-  
 
 function Tasks() {
   const ideas = useGetData("ideas");
+  const [buttonPopup, setButtonPopup] = useState(false);
   return (
     <div>
       <Navbar />
       <div className="idea-design">
-        <div className="container bg-info card">
+        <div className="container card" style={{backgroundColor:"black"}}>
+          <br/>
           {ideas.map(idea => {
-            return <div style={{paddingTop:'20px'}}key={idea.ideaId}>
-              <h2 style={{color:"teal"}}>{idea.ideaName}</h2>
-              <Task id={idea.ideaId} key={idea.ideaId} />
+            return (
+              <div className="card" style={{backgroundColor:"#0B5345"}} key={idea.ideaId}>  
+                <div style={{marginRight:"2%"}}>
+                  <div style={{cursor:"pointer", display:"inline",float:"right", color:"#D0D3D4"}} className="bi bi-building-fill-add" id={idea.ideaId} onClick={() => setButtonPopup(true)}></div>
+                </div>
+                <h2 style={{color:"white"}}>{idea.ideaName}</h2>
+                <Task id={idea.ideaId} key={idea.ideaId} />
+
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                  <form onSubmit={(event) => {
+                      addTask(event);
+                      setButtonPopup(false);
+                      // window.location.reload(); 
+                  }}>
+                    <br/>
+                    <div className="form-group row">
+                      <label htmlFor="taskDescription" className="col-sm-2 col-form-label">Task</label>
+                      <div className="col-sm-10">
+                        <input type="text" className="form-control" id="inputEmail3" placeholder="Task Description"/>
+                      </div>
+                    </div>
+                    
+                    <label htmlFor="taskDescription" className="col-sm-2 col-form-label">Label</label>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Learning"/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                          Learning
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Working"/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                          Working
+                        </label>
+                      </div>
+                    <button style={{marginLeft: "45%", marginTop:"15px"}} type="submit" className="btn btn-primary mb-2">Submit</button>
+
+                  </form>
+                </Popup>
               </div>
+            );
           })}
         </div>
       </div>

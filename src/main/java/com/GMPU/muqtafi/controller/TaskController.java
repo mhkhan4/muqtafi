@@ -92,7 +92,7 @@ public class TaskController {
         return taskRepository.save(taskDB);
     }
 
-    @GetMapping("/board/learning")
+    @GetMapping("/board")
     public JSONObject getIdeaIds(){
         List<Task> taskList = taskRepository.findAll();
 
@@ -104,21 +104,21 @@ public class TaskController {
             if (task.getUser() != null) {
                 if (task.getBoard().isReady()) {
                     JSONObject tempObj = new JSONObject();
-                    String[] tempArr = {task.getTaskDescription(), task.getUser().getUserName()};
+                    String[] tempArr = {task.getTaskDescription(), task.getUser().getUserName(), task.getIdea().getIdeaName(), String.valueOf(task.isLearning())};
                     tempObj.put("id", String.valueOf(task.getTaskId()));
                     tempObj.put("content", tempArr); //might need to change later
                     ready.add(tempObj);
                 }
                 if (task.getBoard().isProgress()) {
                     JSONObject tempObj = new JSONObject();
-                    String[] tempArr = {task.getTaskDescription(), task.getUser().getUserName()};
+                    String[] tempArr = {task.getTaskDescription(), task.getUser().getUserName(), task.getIdea().getIdeaName(), String.valueOf(task.isLearning())};
                     tempObj.put("id", String.valueOf(task.getTaskId()));
                     tempObj.put("content", tempArr); //might need to change later
                     progress.add(tempObj);
                 }
                 if (task.getBoard().isDone()) {
                     JSONObject tempObj = new JSONObject();
-                    String[] tempArr = {task.getTaskDescription(), task.getUser().getUserName()};
+                    String[] tempArr = {task.getTaskDescription(), task.getUser().getUserName(), task.getIdea().getIdeaName(), String.valueOf(task.isLearning())};
                     tempObj.put("id", String.valueOf(task.getTaskId()));
                     tempObj.put("content", tempArr); //might need to change later
                     done.add(tempObj);

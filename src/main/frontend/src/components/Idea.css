@@ -128,3 +128,9 @@ button:active {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.wrapper:hover {
+    word-wrap: break-word;
+    overflow: visible;
+    white-space: normal;
+  }

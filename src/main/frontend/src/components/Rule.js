@@ -41,9 +41,10 @@ const GetRules = () =>{
                         setButtonPopup(false);
                         window.location.reload(); 
                     }}>
-                        <label htmlFor="frule">Type the rule:</label><br/>
-                        <input type="text" id="frule" name="frule"/>
-                        <button type="submit">Submit</button>
+                        <div>
+                            <input className="form-control" type="text" id="frule" name="frule" placeholder="Type the rule"/>
+                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                        </div>
                     </form>
                 </Popup>
             </div>
@@ -106,9 +107,10 @@ function Rule() {
                 setButtonPopup(false);
                 window.location.reload(); 
             }}>
-                <label htmlFor="frule">Type the rule:</label><br/>
-                <input type="text" id="frule" name="frule"/>
-                <button type="submit">Submit</button>
+                <div>
+                    <input className="form-control" type="text" id="frule" name="frule" placeholder="Type the rule"/>
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
             </form>
         </Popup>
     </div>
