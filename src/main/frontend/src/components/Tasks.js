@@ -18,28 +18,27 @@ function AssignTask(e){
     });
 }
 
-const addTask = (e) =>{
+const addTask = (e, id) =>{
   e.preventDefault();
+
   var taskD = e.target[0].value;
   var l = e.target[1].checked;
   var w = e.target[2].checked;
-  console.log(e.target.parentElement.parentElement.parentElement);
-  
 
-  // axios.post('http://localhost:8080/api/tasks', {
-  //     taskDescription: taskD,
-  //     learning: l,
-  //     working: w,
-  //     idea:{
-  //       ideaId:2
-  //     }
-  // })
-  // .then(function(response){
-  //     console.log(response);
-  // })
-  // .catch(function(error){
-  //     console.log(error);
-  // });
+  axios.post('http://localhost:8080/api/tasks', {
+      taskDescription: taskD,
+      learning: l,
+      working: w,
+      idea:{
+        ideaId:id
+      }
+  })
+  .then(function(response){
+      console.log(response);
+  })
+  .catch(function(error){
+      console.log(error);
+  });
 
 }
 
@@ -87,6 +86,7 @@ function Task({ id }) {
 function Tasks() {
   const ideas = useGetData("ideas");
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [assignedId, setAssignedId] = useState(0);
   return (
     <div>
       <Navbar />
@@ -97,16 +97,16 @@ function Tasks() {
             return (
               <div className="card" style={{backgroundColor:"#0B5345"}} key={idea.ideaId}>  
                 <div style={{marginRight:"2%"}}>
-                  <div style={{cursor:"pointer", display:"inline",float:"right", color:"#D0D3D4"}} className="bi bi-building-fill-add" id={idea.ideaId} onClick={() => setButtonPopup(true)}></div>
+                  <i id={idea.ideaId} value={idea.ideaId} style={{cursor:"pointer", display:"inline",float:"right", color:"#D0D3D4"}} className="bi bi-building-fill-add" onClick={(e) => {setButtonPopup(true); setAssignedId(parseInt(e.target.parentElement.parentElement.children[0].children[0].id));}}></i>
                 </div>
                 <h2 style={{color:"white"}}>{idea.ideaName}</h2>
                 <Task id={idea.ideaId} key={idea.ideaId} />
 
                 <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                   <form onSubmit={(event) => {
-                      addTask(event);
+                      addTask(event, assignedId);
                       setButtonPopup(false);
-                      // window.location.reload(); 
+                      window.location.reload(); 
                   }}>
                     <br/>
                     <div className="form-group row">
