@@ -3,7 +3,7 @@ import "./Idea.css";
 import useGetData from "../restApiMethods/GetData";
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from "axios";
-import React, {useState}  from "react";
+import React, {useState, useReducer}  from "react";
 import Popup from "./Popup";
 
 function AssignTask(e){
@@ -18,12 +18,13 @@ function AssignTask(e){
     });
 }
 
-const addTask = (e, id) =>{
+const addTask = (e, id, setValue) =>{
   e.preventDefault();
 
   var taskD = e.target[0].value;
-  var l = e.target[1].checked;
-  var w = e.target[2].checked;
+  var taskPoint = e.target[1].value;
+  var l = e.target[2].checked;
+  var w = e.target[3].checked;
 
   axios.post('http://localhost:8080/api/tasks', {
       taskDescription: taskD,
@@ -31,10 +32,12 @@ const addTask = (e, id) =>{
       working: w,
       idea:{
         ideaId:id
-      }
+      },
+      points: parseInt(taskPoint)
   })
   .then(function(response){
-      console.log(response);
+    setValue();
+    console.log(response);
   })
   .catch(function(error){
       console.log(error);
@@ -62,10 +65,18 @@ function DropdownMenu(taskId,description,users){
   );
 }
 
-function Task({ id }) {
+
+
+function Tasks() {
+  const [value, setValue] = useReducer(x=> x+1,0);
+  const ideas = useGetData("ideas", value);
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const [assignedId, setAssignedId] = useState(0);
+
+  function Task({ id }) {
   
-    const data = useGetData(`ideas/${id}`);
-    const users = useGetData("users");
+    const data = useGetData(`ideas/${id}`,value);
+    const users = useGetData("users", value);
     return (
       <div>
           <div className="row">
@@ -82,11 +93,7 @@ function Task({ id }) {
       </div>
     );
   }
-
-function Tasks() {
-  const ideas = useGetData("ideas");
-  const [buttonPopup, setButtonPopup] = useState(false);
-  const [assignedId, setAssignedId] = useState(0);
+  
   return (
     <div>
       <Navbar />
@@ -104,15 +111,21 @@ function Tasks() {
 
                 <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                   <form onSubmit={(event) => {
-                      addTask(event, assignedId);
+                      addTask(event, assignedId, setValue);
                       setButtonPopup(false);
-                      window.location.reload(); 
                   }}>
                     <br/>
                     <div className="form-group row">
                       <label htmlFor="taskDescription" className="col-sm-2 col-form-label">Task</label>
                       <div className="col-sm-10">
                         <input type="text" className="form-control" id="inputEmail3" placeholder="Task Description"/>
+                      </div>
+                    </div>
+
+                    <div className="form-group row">
+                      <label htmlFor="taskDescription" className="col-sm-2 col-form-label">Points</label>
+                      <div className="col-sm-10">
+                        <input type="text" className="form-control" id="inputEmail3" placeholder="number of points for this task"/>
                       </div>
                     </div>
                     
@@ -129,7 +142,7 @@ function Tasks() {
                           Working
                         </label>
                       </div>
-                    <button style={{marginLeft: "45%", marginTop:"15px"}} type="submit" className="btn btn-primary mb-2">Submit</button>
+                    <button style={{marginLeft: "45%", marginTop:"20px"}} type="submit" className="btn btn-primary mb-2">Submit</button>
 
                   </form>
                 </Popup>

@@ -214,16 +214,15 @@ body{
   color: #b1b4b7;
 }
 .name{
-  font-size: 22px;
   color: #0f1112;
-  font-weight: 600;
+  font-style: inherit;
   text-align: left;
 }
 .quote2{
    font-size: 12px;
    font-weight: 500;
-   color: #dae3ea;
    text-align: left;
+   color: #AAB7B8;
 }
 .task{
    color: #727475;
@@ -238,4 +237,19 @@ body{
   text-align: center;
   position: relative;
   top: 2px;
+}
+.wrappers{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* height: 3em; */
+  overflow: hidden;
+  font-weight: bold;
+  
+}
+
+.wrappers:hover {
+  word-wrap: break-word;
+  overflow: visible;
+  white-space: normal;
 }

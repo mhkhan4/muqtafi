@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 
 function Navbar() {
   return (
@@ -15,13 +16,13 @@ function Navbar() {
         </header>
 
         <nav className="dashboard-nav-list">
-          <Link to="/" className="dashboard-nav-item"><i className="fas fa-home"></i>Home</Link>
+          <NavLink to="/" className="dashboard-nav-item"><i className="fas fa-home"></i>Home</NavLink>
           {/* <a href="/#" className="dashboard-nav-item active"><i className="fas fa-tachometer-alt"></i>Ideas</a> */}
-          <Link to="/tasks" className="dashboard-nav-item"><i className="fas fa-file-upload"></i> Tasks </Link>
-          <Link to="/ideas" className="dashboard-nav-item"><i className="fas fa-tachometer-alt"></i> Ideas </Link>
+          <NavLink to="/tasks" className="dashboard-nav-item"><i className="fas fa-file-upload"></i> Tasks </NavLink>
+          <NavLink to="/ideas" className="dashboard-nav-item"><i className="fas fa-tachometer-alt"></i> Ideas </NavLink>
     
           <div className="nav-item-divider"></div>
-          <Link to="/rules" className="dashboard-nav-item"><i className="fas fa-cogs"></i> Rules </Link>
+          <NavLink to="/rules" className="dashboard-nav-item"><i className="fas fa-cogs"></i> Rules </NavLink>
         </nav>
     </div>
 

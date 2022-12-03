@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer} from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import useGetData from "../restApiMethods/GetData";
 import axios from "axios";
@@ -15,30 +15,41 @@ const getInitials = (user) => {
 
 const learningWorking = (boolVal) => {
   if(boolVal === "true"){
-    return "learning";
+    return (
+      <div style={{float:"right"}}><span className="name badge badge-pill bg-primary">Learning</span></div>
+    );
   }
   else{
-    return "working";
+    return (
+      <div style={{float:"right"}}><span className="name badge badge-pill bg-warning">Working</span></div>
+    );
   }
 }
 
 const card = (item) => {
-  let current = new Date();
   return(
 			<div>
-        <div style={{float:"right"}}><span className="name badge badge-pill bg-success">{learningWorking(item.content[3])}</span></div>
 				<div className="px-3 pt-3">
-					<h5 className="name">{item.content[0]}</h5>
-					<p className="quote2">{item.content[2]}</p>
+					<p className="name">{item.content[0]}</p>
+					<p style={{backgroundColor:"#884EA0", padding: 2}} className="quote2 wrappers card">{item.content[2]}</p>
 				</div>
+        
 				<div className="d-flex justify-content-between  px-3 align-items-center pb-3">
+          {learningWorking(item.content[3])}
+          <div className="d-flex justify-content-end">
+					  {getInitials(item.content[1])}
+				  </div>
 					<div className="d-flex justify-content-start align-items-center">
-					<i className="mdi mdi-calendar-clock date"></i>
-					<span className="quote2 pl-2">{`Date: ${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`}</span>
-				</div>
-				<div className="d-flex justify-content-end">
-					{getInitials(item.content[1])}
-				</div>
+            <span style={{
+              float: "left",
+              width: 25,
+              height: 25,
+              backgroundColor: "#BA4A00",
+              color: "#212F3D"
+            }}
+            className="pl-2 rounded-circle">{`${item.content[4]}`}</span>
+				  </div>
+				  
 				</div>
 
 		</div>
@@ -47,24 +58,14 @@ const card = (item) => {
   );
 }
 
-const onDragEnd = (result) => {
+const onDragEnd = (result, setValue) => {
   if (!result.destination) return;
-  const { draggableId, source, destination } = result;
+  const { draggableId, destination } = result;
   const taskId = parseInt(draggableId);
 
   let ready = false;
   let progress = false;
   let done= false;
-
-  if(source.droppableId === "1"){
-    ready = false;
-  }
-  if(source.droppableId === "2"){
-    progress = false;
-  }
-  if(source.droppableId === "3"){
-    done = false;
-  }
 
   if(destination.droppableId === "1"){
     ready = true;
@@ -82,16 +83,20 @@ const onDragEnd = (result) => {
         "progress" : progress,
         "done": done
       }
-  });
-  window.location.reload(); 
+  })
+  .then(function(response){
+    console.log(response);
+    setValue();
+})
 };
 
-function DragAndDrop() {
-  const board = useGetData("tasks/board");
+function DragAndDrop(id) {
+  const [value, setValue] = useReducer(x=> x+1,0);
+  const board = useGetData("tasks/board/" + id, value);
   return (
     <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <DragDropContext
-        onDragEnd={result => onDragEnd(result)}
+        onDragEnd={result => onDragEnd(result, setValue)}
       >
         {Object.entries(board).map(([columnId, column], index) => {
           return (
@@ -99,6 +104,7 @@ function DragAndDrop() {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                // alignItems: "stretch"
                 alignItems: "center"
               }}
               key={columnId}
@@ -117,7 +123,7 @@ function DragAndDrop() {
                             : "lightgrey",
                           padding: 4,
                           width: 250,
-                          minHeight: 500
+                          minHeight: "1000px"
                         }}
                       >
                         {column.items.map((item, index) => {
@@ -146,9 +152,7 @@ function DragAndDrop() {
                                     }}
                                   >
                                     {card(item)}
-                                
-                                    {/* <h6>{item.content[0]}</h6>
-                                    <p><small>{item.content[1]}</small></p> */}
+                              
                                   </div>
                                 );
                               }}
@@ -162,6 +166,7 @@ function DragAndDrop() {
                 </Droppable>
               </div>
             </div>
+            
           );
         })}
       </DragDropContext>

@@ -1,20 +1,21 @@
 import axios from "axios";
 import {useState, useEffect}  from "react";
 
-function GetData(data) {
+function GetData(data, value) {
 
     const [datas, setDatas] = useState([]);
 
-    useEffect(() =>{ 
     const fetchData = () => {
         axios.get(`http://localhost:8080/api/${data}`).then(res =>{
         console.log(res);
         setDatas(res.data);
             });
     };
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    useEffect(() =>{
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value]);
+    
       
     return datas;
 }

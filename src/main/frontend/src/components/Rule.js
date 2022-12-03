@@ -25,9 +25,7 @@ const GetRules = () =>{
         return(
             <div key={index} id={rule.ruleId} value={rule.ruleDescription}>
                 <Dropdown>
-                    <Dropdown.Toggle variant="info" id="dropdown-basic">
-                        *
-                    </Dropdown.Toggle>
+                    <Dropdown.Toggle variant="" id="dropdown-basic"></Dropdown.Toggle>
                     {` ${rule.ruleDescription}`}
                     <Dropdown.Menu>
                         <Dropdown.Item href="#/action-1" onClick={(e) => DeleteRule(e)}>Delete</Dropdown.Item>
@@ -43,7 +41,7 @@ const GetRules = () =>{
                     }}>
                         <div>
                             <input className="form-control" type="text" id="frule" name="frule" placeholder="Type the rule"/>
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            <button style={{marginLeft: "45%", marginTop: 20}} type="submit" class="btn btn-primary mb-2">Submit</button>
                         </div>
                     </form>
                 </Popup>
@@ -97,7 +95,7 @@ function Rule() {
     <div>
         <Navbar />
         <div className="rule-design">
-            <h1>Basic Rules: <button className="plus-btn" onClick={()=> setButtonPopup(true)}>+</button></h1>
+            <h1>Basic Rules: <i style={{cursor: "pointer"}} className="bi bi-plus" onClick={()=> setButtonPopup(true)}></i></h1>
             <ul><GetRules /></ul>
         </div>
 
@@ -109,7 +107,7 @@ function Rule() {
             }}>
                 <div>
                     <input className="form-control" type="text" id="frule" name="frule" placeholder="Type the rule"/>
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    <button style={{marginLeft: "45%", marginTop: 20}} type="submit" class="btn btn-primary mb-2">Submit</button>
                 </div>
             </form>
         </Popup>
