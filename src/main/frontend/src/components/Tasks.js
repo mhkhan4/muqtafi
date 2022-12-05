@@ -15,6 +15,11 @@ function AssignTask(e){
     user:{
       userId:user_id
     }
+    })
+    .then(function(response){
+      console.log(response);
+      //add alert
+      
     });
 }
 

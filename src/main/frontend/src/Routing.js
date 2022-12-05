@@ -8,6 +8,7 @@ import App from "./App";
 import Rule from "./components/Rule";
 import Idea from "./components/Idea";
 import Task from "./components/Tasks";
+import Tracker from './components/Tracker';
 
 function Routing() {
     return (
@@ -18,6 +19,7 @@ function Routing() {
                     <Route path = "/rules" element={<Rule />} />
                     <Route path = "/ideas" element={<Idea />} />
                     <Route path = "/tasks" element={<Task />} />
+                    <Route path = "/tracker" element={<Tracker />} />
                 </Routes>
             </div>
         </BrowserRouter>
