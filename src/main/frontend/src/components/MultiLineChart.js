@@ -1,24 +1,47 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Chart from 'react-google-charts'
-import GetDataWithoutValue from '../restApiMethods/GetDataWithoutValue';
 
+function getIndexOfUsers(users){
+  let indexOfUsers = {};
+  for (let i = 0; i < users.length;i++){
+    indexOfUsers[users[i]] = i;
+  }
+  return indexOfUsers;
+}
 const GetLineData = (points) =>{
     let lineData = [];
     let users = ['x'];
-    
-    for (const userId in points){
-        users.push(points[userId][0]);
+
+    for (const weekNum in points){
+        for(const user of Object.keys(points[weekNum])){
+          if(!users.includes(user)){
+            users.push(user);
+          }
+        }
     }
     lineData.push(users);
-    lineData.push([0, 0, 0, 0]);
+    let addZeroes = []
+    for(let i = 0; i < users.length;i++){
+      addZeroes.push(0);
+    }
+    lineData.push(addZeroes);
 
-    for (const userId in points){
-        //use weeks
-        //each task when it's done it should have the date assigned to it
+    const indexOfUsers = getIndexOfUsers(users);
+
+    for (const weekNum in points){
+      let tempArr = [];
+      tempArr[0] = parseInt(weekNum);
+      if(typeof points[weekNum] != 'undefined'){
+        for(const name of Object.keys(points[weekNum])){
+          tempArr[indexOfUsers[name]] = points[weekNum][name];
+        }
+      }
+      lineData.push(tempArr);
     }
 
 
-    console.log(lineData);
+
+    return lineData;
     
 }
 const LineData = [
